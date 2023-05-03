@@ -1,2 +1,4 @@
 longhorn:
   enable: true
+logging: 
+  enable: true
