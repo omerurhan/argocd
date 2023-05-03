@@ -5,6 +5,6 @@ logging:
 loki:
   enable: true
 monitoring:
-  enable: false
+  enable: true
   retention: 10d
   storageSize: 20Gi
