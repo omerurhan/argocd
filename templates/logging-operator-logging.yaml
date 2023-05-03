@@ -1,0 +1,38 @@
+{{- if .Values.logging.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: logging-operator-logging
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: 'https://kube-logging.github.io/helm-charts'
+    targetRevision: 4.1.0
+    helm:
+      values: |
+        fluentd:
+          bufferStorageVolume:
+            pvc:
+              spec:
+                accessModes:
+                  - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 10Gi
+    chart: logging-operator-logging
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: logging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+{{- end }}
