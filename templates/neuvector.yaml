@@ -16,6 +16,19 @@ spec:
   source:
     repoURL: https://neuvector.github.io/neuvector-helm/
     targetRevision: 2.4.3
+    helm:
+      values: |
+        controller:
+          ranchersso:
+            enabled: true
+        manager:
+          ingress:
+            enabled: true
+            host: manager-demo.mooo.com
+            ingressClassName: "nginx"
+        k3s:
+          enabled: true
+
     chart: core
   syncPolicy:
     syncOptions:
