@@ -20,6 +20,11 @@ spec:
           rules:
             kubeProxy: false
         prometheus:
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            hosts:
+              - prometheus-demo.mooo.com
           prometheusSpec:
             retention: {{ .Values.monitoring.retention }}
             storageSpec:
@@ -30,11 +35,22 @@ spec:
                     requests:
                       storage: {{ .Values.monitoring.storageSize }}
         grafana:
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            hosts:
+              - grafana-demo.mooo.com
           service:
           additionalDataSources:
             - name: loki
               type: loki
               url: http://loki-gateway.logging.svc.cluster.local
+        alertmanager:
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            hosts:
+              - alertmanager-demo.mooo.com
     chart: kube-prometheus-stack
   destination:
     server: 'https://kubernetes.default.svc'
