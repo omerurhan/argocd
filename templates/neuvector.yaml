@@ -1,0 +1,26 @@
+{{- if .Values.neuvector.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: neuvector
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: cattle-neuvector-system
+  project: default
+  source:
+    repoURL: https://neuvector.github.io/neuvector-helm/
+    targetRevision: 2.4.3
+    chart: core
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+{{- end }}
