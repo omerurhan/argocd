@@ -8,3 +8,5 @@ monitoring:
   enable: true
   retention: 10d
   storageSize: 20Gi
+cis-benchmark:
+  enabled: true

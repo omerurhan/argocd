@@ -1,0 +1,33 @@
+{{- if .Values.cis-benchmark.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cis-becnhmark
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: cis-operator-system
+  project: default
+  source:
+    repoURL: https://charts.rancher.io
+    targetRevision: 4.0.0
+    helm:
+      values: |
+        global:
+          cattle:
+            psp:
+              enabled: false
+    chart: kube-prometheus-stack
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - Replace=true
+    automated:
+      prune: true
+      selfHeal: true
+{{- end }}
