@@ -1,4 +1,4 @@
-{{- if .Values.cis-benchmark.enable }}
+{{- if .Values.cisBenchmark.enable }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
