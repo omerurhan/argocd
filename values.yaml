@@ -10,3 +10,5 @@ monitoring:
   storageSize: 20Gi
 cisBenchmark:
   enable: true
+neuvector:
+  enable: true
