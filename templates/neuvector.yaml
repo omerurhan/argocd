@@ -25,12 +25,13 @@ spec:
             ingressClassName: "nginx"
         k3s:
           enabled: true
-
+        crdwebhook:
+          enabled: false
     chart: core
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
-    #automated:
-    #  prune: true
-    #  selfHeal: true
+    automated:
+      prune: true
+      selfHeal: true
 {{- end }}
