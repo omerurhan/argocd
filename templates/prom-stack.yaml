@@ -1,0 +1,46 @@
+{{- if .Values.monitoring.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prom-stack
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: 'https://prometheus-community.github.io/helm-charts'
+    targetRevision: 40.1.0
+    helm:
+      skipCrds: true
+      values: |
+        defaultRules:
+          rules:
+            kubeProxy: false
+        prometheus:
+          prometheusSpec:
+            retention: {{ .Values.monitoring.retention }}
+            storageSpec:
+              volumeClaimTemplate:
+                spec:
+                  accessModes: ["ReadWriteOnce"]
+                  resources:
+                    requests:
+                      storage: {{ .Values.monitoring.storageSize }}
+        grafana:
+          service:
+          additionalDataSources:
+            - name: loki
+              type: loki
+              url: http://loki-gateway.logging.svc.cluster.local
+    chart: kube-prometheus-stack
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: cattle-monitoring-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+{{- end }}
