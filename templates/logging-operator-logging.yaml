@@ -21,9 +21,9 @@ spec:
               spec:
                 accessModes:
                   - ReadWriteOnce
-              resources:
-                requests:
-                  storage: 10Gi
+                resources:
+                  requests:
+                    storage: 10Gi
     chart: logging-operator-logging
   destination:
     server: 'https://kubernetes.default.svc'
