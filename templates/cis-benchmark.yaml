@@ -22,7 +22,7 @@ spec:
           cattle:
             psp:
               enabled: false
-    chart: kube-prometheus-stack
+    chart: rancher-cis-benchmark
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
