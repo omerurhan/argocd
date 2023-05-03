@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     path: /
-    repoURL: https://github.com/omerurhan/argocd.gits
+    repoURL: https://github.com/omerurhan/argocd.git
     targetRevision: HEAD
   syncPolicy:
     automated:
