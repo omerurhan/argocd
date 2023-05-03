@@ -56,9 +56,6 @@ spec:
           replicas: 3
           persistence:
             size: 1Gi
-        monitoring:
-          lokiCanary:
-            enabled: false
     chart: loki
   destination:
     server: 'https://kubernetes.default.svc'
