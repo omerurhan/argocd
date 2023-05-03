@@ -37,7 +37,7 @@ spec:
             - name: loki
               type: loki
               url: http://loki-gateway.logging.svc.cluster.local
-    chart: longhorn
+    chart: kube-prometheus-stack
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
