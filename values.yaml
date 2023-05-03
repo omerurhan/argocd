@@ -2,3 +2,5 @@ longhorn:
   enable: true
 logging: 
   enable: true
+loki:
+  enable: true
