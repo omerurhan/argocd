@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: helm-guestbook
+  namespace: argocd
+spec:
+  destination:
+    namespace: tigera-operator
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: "."
+    repoURL: https://github.com/omerurhan/banzai-logging-conf.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
