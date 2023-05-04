@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sock-shop
+  namespace: argocd
+spec:
+  destination:
+    namespace: calico-system
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: "."
+    repoURL: https://github.com/microservices-demo/microservices-demo/tree/master/deploy/kubernetes/helm-chart
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
