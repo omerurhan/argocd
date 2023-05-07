@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: helm-guestbook-logging
+  name: helm-guestbook
   namespace: argocd
 spec:
   destination:
@@ -9,9 +9,16 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: "customer-app"
-    repoURL: https://github.com/omerurhan/banzai-logging-conf.git
+    path: "helm-guestbook"
+    repoURL: https://github.com/argoproj/argocd-example-apps.git
     targetRevision: HEAD
+    helm:
+      skipCrds: true
+      values: |
+        ingress:
+          enabled: true
+          hosts:
+            - chart-example.mooo.com
   syncPolicy:
     automated:
       selfHeal: true

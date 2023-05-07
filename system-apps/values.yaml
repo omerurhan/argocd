@@ -12,3 +12,5 @@ cisBenchmark:
   enable: true
 neuvector:
   enable: true
+tetragon:
+  enable: true
