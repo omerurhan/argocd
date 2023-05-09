@@ -11,6 +11,6 @@ monitoring:
 cisBenchmark:
   enable: true
 neuvector:
-  enable: false
+  enable: true
 tetragon:
   enable: true
